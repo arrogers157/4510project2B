@@ -1,1 +1,6 @@
+The main change from project 1 to a workflow is that I no longer have to manually execute each step of an analysis. 
+By using a structured repo, the analysis isn't a one time thing, it is a repeatable process when I input data.
+The control has now swithced over to the python code AI has generated. The next step I would do would be to do a data validation test.
+This process could be applied to internal controls, especially at year-end. Github actions could be set up to flag weekly transactions that
+didn't have proper authority for the transaction or if it exceeded any thresholds for the company. 
 
