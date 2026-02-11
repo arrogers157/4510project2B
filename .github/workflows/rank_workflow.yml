@@ -1,0 +1,38 @@
+name: Rank Programs and Commit Results
+
+on:
+  push:
+    paths:
+      - 'data/**'
+      - 'src/**'
+      - 'requirements.txt'
+      - '.github/workflows/rank_workflow.yml'
+  workflow_dispatch:
+
+jobs:
+  analyze-and-rank:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run analysis script
+        run: python src/analyze_rankings.py
+
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update rankings and plots"
+          file_pattern: "outputs/*"
+          branch: ${{ github.head_ref }}
